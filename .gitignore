@@ -1,0 +1,60 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.db
+*.sqlite3
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+
+# Virtualenv
+venv/
+env/
+ENV/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.iml
+
+# Django migrations
+*/migrations/*
+
+# Python bytecode files
+*.py[cod]
+
+# Environment files
+.env
+.env.*
+
+# Test and Coverage Reports
+.coverage
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+
+# Pytest
+.cache
+
+# Docker
+docker-compose.override.yml
+
+# VSCode settings
+.vscode/
+
+# PyCharm settings
+.idea/
+
+# macOS
+.DS_Store
