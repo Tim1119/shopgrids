@@ -15,9 +15,9 @@ SECRET_KEY=env('SECRET_KEY')
 DEBUG = env('DEBUG')
 ALLOWED_HOSTS=env('ALLOWED_HOSTS').split(" ")
 
-# Application definition
+#----------------------------------------------  APPLICATIONS --------------------------------------------------------------------
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -25,6 +25,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+LOCAL_APPS = [
+
+]
+
+THIRD_PARTY_APPS = [
+
+]
+
+INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS +DJANGO_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -41,7 +51,7 @@ ROOT_URLCONF = 'shopgrids.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,7 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Lagos'
 
 USE_I18N = True
 
@@ -102,7 +112,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+# -------------------------------------------------------- STATIC AND  MEDIA PATHS --------------------------------------------------
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static",]
+
+MEDIA_URL = "/media/"
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
