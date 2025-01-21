@@ -34,13 +34,7 @@ class CustomUserAdmin(UserAdmin):
 
     # Actions for the admin panel
     actions = ['make_verified', 'make_inactive']
-
-    # def make_verified(self, request, queryset):
-    #     """Mark selected users as verified"""
-    #     updated_count = queryset.update(is_verified=True)
-    #     self.message_user(request, f'{updated_count} user(s) marked as verified.')
-    # make_verified.short_description = _('Mark selected users as verified')
-
+    
     def make_inactive(self, request, queryset):
         """Deactivate selected users"""
         updated_count = queryset.update(is_active=False)
