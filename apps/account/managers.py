@@ -15,13 +15,13 @@ class CustomUserManager(BaseUserManager):
         except ValidationError:
             raise ValueError(_("You must provide a valide email address"))
         
-    def create_user(self, email,password=None,role=None,**extra_fields):
+    def create_user(self, email,password=None,**extra_fields):
         if not email:
             raise ValueError(_('User must provide an email address'))
         if not password:
             raise ValueError('User must provide a password')
         
-        user = self.model(email=self.normalize_email(email),role=role,**extra_fields)
+        user = self.model(email=self.normalize_email(email),**extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -34,7 +34,6 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('Base User Account: Super users must provide a password')
         
         user = self.create_user(email=email, password=password)
-        extra_fields.setdefault('role', UserTypes.SellerAndBuyer)
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
