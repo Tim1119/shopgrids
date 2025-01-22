@@ -22,7 +22,8 @@ class User(AbstractBaseUser,PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = 'email'  # Make sure this is set to 'email'
+    REQUIRED_FIELDS = ["first_name", "last_name"]  # Add any fields you want in addition to email for creating superusers
    
     objects = CustomUserManager()
 
