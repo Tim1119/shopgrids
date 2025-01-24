@@ -22,7 +22,7 @@ class Product(TimeStampedUUID):
     product_weight = models.DecimalField(max_digits=10,decimal_places=2,verbose_name=_("Product Weight"),blank=True,null=True)
     product_dimension = models.CharField(max_length=255,verbose_name=_("Product Dimension"),blank=True,null=True)
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=_("Brand"))
-    is_shipping_required = models.BooleanField(verbose_name=_("Is Shipping Required"), default=True, help_text=_("Tick if this product needs shipping or not."))
+    is_digital = models.BooleanField(verbose_name=_("Is Product digital"), default=True, help_text=_("Tick if this product needs shipping or not."))
     is_active = models.BooleanField(verbose_name=_("Is Active"), default=True, help_text=_("Tick to make the product available for sale."))
     slug = AutoSlugField(populate_from='name',unique=True)
 
