@@ -17,6 +17,9 @@ db.sqlite3
 *.swp
 *.swo
 
+mediafiles/
+
+
 # Virtualenv
 venv/
 env/

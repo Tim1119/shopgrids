@@ -17,3 +17,11 @@ class Brand(TimeStampedUUID):
         verbose_name = _("Brand")
         verbose_name_plural = _("Brands")
         ordering = ['-created_at']
+
+    @property
+    def get_brand_logo(self):
+        try:
+            url = self.brand_image.url
+        except:
+            url ='' 
+        return url

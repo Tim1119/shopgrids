@@ -6,13 +6,14 @@ from django.utils.translation import gettext_lazy as _
 from apps.products.models import Product
 from autoslug import AutoSlugField
 from django_extensions.db.fields import RandomCharField
+from apps.profiles.models import Profile
 # Create your models here.
 
 User = get_user_model()
 
 
 class Order(TimeStampedUUID):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name=_("User"))
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE,verbose_name=_("User Profile"))
     order_status = models.CharField(max_length=12, choices=OrderStatus.choices, default=OrderStatus.PENDING,verbose_name=_("Order Status"))
     total_price = models.DecimalField(max_digits=10, decimal_places=2,verbose_name=_("Total Price"))
     payment_method = models.CharField(max_length=50, verbose_name=_("Payment Method"), null=True, blank=True)

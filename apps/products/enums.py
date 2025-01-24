@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 class ProductImageTypes(models.TextChoices):
         MAIN = 'main', _("Main Image")
         GALLERY = 'gallery', _("Gallery Image")
-        ZOOM = 'zoom', _("Zoom Image")
+        # ZOOM = 'zoom', _("Zoom Image")
 
 class ProductColors(models.TextChoices):
     RED = "Red", _("Red")

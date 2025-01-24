@@ -1,6 +1,7 @@
 from django.db import models
 from apps.order.models import Order
 from shared.models import TimeStampedUUID
+from django.utils.translation import gettext_lazy as _
 # Create your models here.
 class Shipping(TimeStampedUUID):
     order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name="shipping", verbose_name=_("Order"))

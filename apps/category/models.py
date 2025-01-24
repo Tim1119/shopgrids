@@ -18,10 +18,16 @@ class Category(TimeStampedUUID):
         verbose_name_plural = _("Categories")
         ordering = ['-created_at']
 
+    @property
+    def get_category_image(self):
+        try:
+            url = self.category_image.url
+        except:
+            url ='' 
+        return url
 
 class Subcategory(TimeStampedUUID):
     name = models.CharField(verbose_name=_("Name of Sub-category"),max_length=255)
-    category = models.ForeignKey(Category,on_delete=models.CASCADE)
     description = models.TextField(verbose_name=_("Description of Subcategory"),null=True,blank=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name="subcategories")
     slug = AutoSlugField(populate_from='name',unique=True)
