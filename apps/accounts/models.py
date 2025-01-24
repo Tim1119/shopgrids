@@ -1,40 +1,23 @@
 from django.db import models
-
-# Create your models here.
-import uuid
-from django.db import models
-from django.shortcuts import render
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _ 
 from .managers import CustomUserManager
 
 
 
-class User(AbstractBaseUser,PermissionsMixin):
+from django.contrib.auth.models import AbstractUser
+from django.db import models
 
-    pkid = models.BigAutoField(primary_key=True,editable=False)
-    id = models.UUIDField(default=uuid.uuid4,editable=False,unique=True)
-    email = models.EmailField(verbose_name=_("Email Address"),unique=True,db_index=True)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    is_active = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+class CustomUser(AbstractUser):
+    username = None  # Disable the username field
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)  # Mark email as unique
 
-    USERNAME_FIELD = 'email'  # Make sure this is set to 'email'
-    REQUIRED_FIELDS = ["first_name", "last_name"]  # Add any fields you want in addition to email for creating superusers
-   
-    objects = CustomUserManager()
+    EMAIL_FIELD = 'email'  # This is used for email-related fields in forms, etc.
+    USERNAME_FIELD = 'email'  # Use email as the unique identifier
+    REQUIRED_FIELDS = ['first_name', 'last_name']  # These fields are required for signup
 
-    class Meta:
-        verbose_name = _("Customer Account")
-        verbose_name_plural = _("Customer Accounts")
-        ordering=["-created_at"]
-
-    def __str__(self):
-        return f"Customer account for {self.email}"
-
-
+    objects = CustomUserManager()  # Use the custom manager
 
     

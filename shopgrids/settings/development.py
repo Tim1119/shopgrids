@@ -1,16 +1,5 @@
 from .base import *
 
-MEDIA_ROOT = [BASE_DIR / 'mediafiles']
-
-ACCOUNT_ADAPTER = 'apps.accounts.adapters.CustomAccountAdapter'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-
-
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST = env('DEVELOPMENT_EMAIL_HOST')  # e.g., 'smtp.gmail.com'

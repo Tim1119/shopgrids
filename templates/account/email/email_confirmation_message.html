@@ -1,0 +1,28 @@
+{% extends "account/email/base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to {{ site_name }}</h1>
+        </div>
+        <div class="content">
+            <p>Hello!</p>
+            <p>Thank you for signing up with {{ site_name }}. To complete your registration and verify your email address, please click the button below:</p>
+            
+            <div style="text-align: center;">
+                <a href="{{ confirmation_link }}" class="button">Confirm Email Address</a>
+            </div>
+            
+            <p>If the button above doesn't work, you can also copy and paste this link into your browser:</p>
+            <p style="word-break: break-all;">{{ confirmation_link }}</p>
+            
+            <p>This link will expire in 3 days.</p>
+            
+            <p>If you didn't create an account with {{ site_name }}, you can safely ignore this email.</p>
+        </div>
+        <div class="footer">
+            <p>This email was sent to you by {{ site_name }}.</p>
+            <p>If you have any questions, please contact us at {{ support_email }}</p>
+        </div>
+    </div>
+{% endblock %}
