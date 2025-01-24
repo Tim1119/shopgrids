@@ -7,7 +7,7 @@ class Category(TimeStampedUUID):
     name = models.CharField(verbose_name=_("Name of Category"),max_length=255,unique=True)
     description = models.TextField(verbose_name=_("Description of Category"),null=True,blank=True)
     category_image = models.ImageField(verbose_name=_("Category Image"),upload_to="categories-images/",null=True,blank=True,help_text=_("Upload an image for this category. Leave blank if not needed."))
-    slug = AutoSlugField(populate_from='name')
+    slug = AutoSlugField(populate_from='name',unique=True)
 
 
     def __str__(self):
@@ -24,7 +24,7 @@ class Subcategory(TimeStampedUUID):
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     description = models.TextField(verbose_name=_("Description of Subcategory"),null=True,blank=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name="subcategories")
-    slug = AutoSlugField(populate_from='name')
+    slug = AutoSlugField(populate_from='name',unique=True)
 
     def __str__(self):
         return f"{self.name} Sub cetgory for {self.category.name} Category"
