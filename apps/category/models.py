@@ -34,3 +34,5 @@ class Subcategory(TimeStampedUUID):
         verbose_name_plural = _("sub-Categories")
         ordering = ['-created_at']
         unique_together = ('name', 'category')
+
+

@@ -31,7 +31,8 @@ DJANGO_APPS = [
 LOCAL_APPS = [
     "apps.accounts",
     "apps.category",
-    "apps.brands"
+    "apps.brands",
+    "apps.products"
     ]
 
 THIRD_PARTY_APPS = [
@@ -40,6 +41,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     "django_celery_results",
     "django_celery_beat",
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 INSTALLED_APPS =  DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS 
