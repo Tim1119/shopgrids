@@ -28,7 +28,10 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-LOCAL_APPS = ["apps.accounts"]
+LOCAL_APPS = [
+    "apps.accounts",
+    "apps.category"
+    ]
 
 THIRD_PARTY_APPS = [
     "allauth",
