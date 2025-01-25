@@ -140,7 +140,7 @@
                             <span class="sale-tag">-{{product.discount_percentage}}%</span>
                             {% endif %}
                             <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                <a href="{% url "products:product-details" product.slug %}" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
                         </div>
                         <div class="product-info">
@@ -228,6 +228,11 @@
                          <div class="single-product">
                              <div class="product-image">
                                  <img src={{product.get_main_product_image}} alt="#">
+                                 {% if product.discount_amount %}
+                                 <span class="sale-tag">-{{product.discount_amount}}</span>
+                                 {% elif product.discount_percentage %}
+                                 <span class="sale-tag">-{{product.discount_percentage}}%</span>
+                                 {% endif %}
                                  <div class="button">
                                      <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to
                                          Cart</a>

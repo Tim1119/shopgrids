@@ -7,10 +7,12 @@ from .enums import ProductColors,ProductImageTypes
 from apps.brands.models import Brand
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator,MaxValueValidator
+from decimal import Decimal
 # Create your models here.
 
 
 # todo: add that special offer cannot also be trending
+#add rich text editor for features
 class Product(TimeStampedUUID):
 
     name = models.CharField(max_length=255,verbose_name=_("Product name"),unique=True)
@@ -61,14 +63,15 @@ class Product(TimeStampedUUID):
 
         super().clean()  # Don't forget to call the parent method to ensure any other validation is executed.
 
+    @property
     def get_discounted_price(self):
         """Calculate and return the discounted price based on either percentage or amount."""
         if self.discount_percentage:
-            discount_value = (self.discount_percentage / 100) * self.price
+            discount_value = (Decimal(self.discount_percentage) / Decimal(100)) * self.price
             return self.price - discount_value
         elif self.discount_amount:
             return self.price - self.discount_amount
-        return self.price  
+        return self.price
     
     def get_image_url(self, image_field):
         """

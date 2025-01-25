@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,DetailView
 # from django.contrib.
 from apps.category.models import Category
 from apps.products.models import Product
 from apps.brands.models import Brand
 # Create your views here.
-class Home(TemplateView):
+class HomeView(TemplateView):
     template_name = 'products/product_home.html'
 
     def get_context_data(self, **kwargs):
@@ -28,3 +28,12 @@ class Home(TemplateView):
         context['special_offer_products'] = special_offer_products
         context['product_brands'] = product_brands
         return context
+
+
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'products/product_details.html'
+    context_object_name="product"
+    
+   
