@@ -1,0 +1,55 @@
+<!-- cart_update_section.html -->
+<div id="cart-update-section">
+    <!-- Cart Items Section -->
+    <div id="cart-items" class="cart-items">
+        <a href="javascript:void(0)" class="main-btn">
+            <i class="lni lni-cart"></i>
+            <span class="total-items">{{ order.items.count }}</span>
+        </a>
+        <div class="shopping-item">
+            <div class="dropdown-cart-header">
+                <span>{{ order.items.count }} Items</span>
+                <a href="">View Cart</a>
+            </div>
+            <ul class="shopping-list">
+                {% for shopping_item in order.items.all %}
+                <li>
+                    <div class="cart-img-head">
+                        <img src="{{ shopping_item.product.product_image.url }}" alt="{{ shopping_item.product.name }}">
+                    </div>
+                    <div class="content">
+                        <h4>{{ shopping_item.product.name }}</h4>
+                        <p class="quantity">
+                            <button hx-post="{% url 'order:cart_item_update' shopping_item.product.id %}?action=remove" 
+                                    hx-target="#cart-update-section" 
+                                    hx-swap="outerHTML">-</button>
+                            {{ shopping_item.quantity }}x
+                            <button hx-post="{% url 'order:cart_item_update' shopping_item.product.id %}?action=add" 
+                                    hx-target="#cart-update-section" 
+                                    hx-swap="outerHTML">+</button>
+                            <span class="amount">${{ shopping_item.subtotal }}</span>
+                        </p>
+                    </div>
+                </li>
+                {% empty %}
+                <li><p>Your cart is empty.</p></li>
+                {% endfor %}
+            </ul>
+
+            {% if order.items.count %}
+            <div class="bottom">
+                <div class="total">
+                    <span>Total</span>
+                    <span class="total-amount">${{ order.get_total_price }}</span>
+                </div>
+                <div class="button">
+                    <a href="" class="btn animate">Checkout</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Quantity Span -->
+    <span id="quantity-{{ product.id }}" class="mx-2">{{ order_item.quantity }}</span>
+</div>

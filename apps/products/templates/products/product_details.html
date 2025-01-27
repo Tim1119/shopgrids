@@ -101,12 +101,47 @@
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-12">
-                                <div class="form-group quantity flex">
-                                    <button class="btn btn-primary">+</button>
-                                    <span class="mx-2" >1</span>
-                                    <button class="btn btn-primary">-</button>
-                                   
-                                </div>
+                                <form class="form-group quantity flex">
+                                    {% csrf_token %}
+                                    {% comment %} <button name="add" 
+                                            hx-post="{% url 'order:cart_item_update' product.id %}?action=add" 
+                                            hx-target="#cart-items" 
+                                            hx-swap="outerHTML" 
+                                            class="btn btn-primary">+
+                                    </button>
+                                    <span class="mx-2">
+                                       {% for shopping_item in order_items %}
+                                        {% if shopping_item.product.id == product.id %}
+                                            {{ shopping_item.quantity }}
+                                        {% endif %}
+                                    {% empty %}
+                                        0
+                                    {% endfor %}
+                                        </span>
+                                    <button name="remove" 
+                                            hx-post="{% url 'order:cart_item_update' product.id %}?action=remove" 
+                                            hx-target="#cart-items" 
+                                            hx-swap="outerHTML" 
+                                            class="btn btn-primary">-
+                                    </button> {% endcomment %}
+
+                                    <button 
+                                        hx-post="{% url 'order:cart_item_update' product.id %}?action=add" 
+                                        hx-target="#quantity-display" 
+                                        hx-swap="innerHTML" 
+                                        onhtmx:after-request="updateCartAndQuantity(event)" 
+                                        class="btn btn-primary">+
+                                    </button>
+                                    <span id="quantity-display" >hhh </span>
+
+                                    <button 
+                                        hx-post="{% url 'order:cart_item_update' product.id %}?action=remove" 
+                                        hx-target="#quantity-display" 
+                                        hx-swap="innerHTML" 
+                                        onhtmx:after-request="updateCartAndQuantity(event)" 
+                                        class="btn btn-primary">-
+                                    </button>
+                                </form>
                             </div>
                         </div>
                         <div class="bottom-content">

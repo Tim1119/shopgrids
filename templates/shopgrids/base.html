@@ -59,8 +59,9 @@
     </a>
 
     <!-- ========================= JS here ========================= -->
+   
     <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'assets/js/tiny-slider.js' %}"></script>
+    {% comment %} <script src="{% static 'assets/js/tiny-slider.js' %}"></script> {% endcomment %}
     <script src="{% static 'assets/js/glightbox.min.js' %}"></script>
     <script src="{% static 'assets/js/main.js' %}"></script>
     <script type="text/javascript">
@@ -103,6 +104,20 @@
             }
         });
     </script>
+    <script type="text/javascript">
+        function updateCartAndQuantity(event) {
+            console.log("updateCartAndQuantity function called"); // Debugging
+            const response = JSON.parse(event.detail.xhr.response);
+            document.getElementById('cart').innerHTML = response.cart_html;
+            document.getElementById('quantity-display').innerHTML = response.quantity_html;
+        }
+    </script>
+    </script>
+
+    <script defer src="{% static 'assets/js/htmx.js' %}"></script>
+
+
+    
 </body>
 
 </html>
