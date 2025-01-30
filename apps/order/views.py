@@ -182,6 +182,40 @@ from django.template.loader import render_to_string
 #     return HttpResponse(status=204)
 
 
+# def cart_item_update(request, product_id):
+#     action = request.GET.get('action')
+#     product = get_object_or_404(Product, id=product_id)
+    
+#     if request.user.is_authenticated:
+#         customer_profile = get_object_or_404(Profile, user=request.user)
+#         order, created = Order.objects.get_or_create(order_status=OrderStatus.PENDING, customer=customer_profile)
+#         order_item, created = OrderItem.objects.get_or_create(order=order, product=product)
+        
+#         if action == 'add':
+#             order_item.quantity += 1
+#         elif action == 'remove':
+#             if order_item.quantity > 1:
+#                 order_item.quantity -= 1
+#             else:
+#                 order_item.delete()
+        
+#         order_item.save()
+        
+#         # Re-fetch the order items to get the updated list
+#         order_items = order.orderitem_set.all()
+        
+#         # Render the updated cart HTML
+        
+#         cart_html = render_to_string('order/shopping-item.html', {
+#             'order_items': order_items,
+#             'order': order,
+#             'order_item': order_item  # Pass the order_item to the template
+#         })
+#         return HttpResponse(cart_html)
+    
+#     return HttpResponse(status=204)
+
+
 def cart_item_update(request, product_id):
     action = request.GET.get('action')
     product = get_object_or_404(Product, id=product_id)
@@ -198,19 +232,37 @@ def cart_item_update(request, product_id):
                 order_item.quantity -= 1
             else:
                 order_item.delete()
+                order_item = None  # Set order_item to None after deletion
         
-        order_item.save()
+        if order_item:
+            order_item.save()
         
         # Re-fetch the order items to get the updated list
         order_items = order.orderitem_set.all()
         
         # Render the updated cart HTML
-        
         cart_html = render_to_string('order/shopping-item.html', {
             'order_items': order_items,
             'order': order,
-            'order_item': order_item  # Pass the order_item to the template
+            'order_item': order_item,
         })
-        return HttpResponse(cart_html)
+        
+        # Render the updated quantity HTML
+        quantity_html = render_to_string('order/quantity_display.html', {
+            'order_item': order_item,
+            'product': product,
+        })
+        
+        # Debugging: Print the JSON response
+        print({
+            'cart_html': cart_html,
+            'quantity_html': quantity_html,
+        })
+        
+        # Return both updates as a JSON response
+        return JsonResponse({
+            'cart_html': cart_html,
+            'quantity_html': quantity_html,
+        })
     
-    return HttpResponse(status=204)
+    return JsonResponse({'error': 'Unauthorized'}, status=401)
